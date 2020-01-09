@@ -1,13 +1,15 @@
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 
+import { decode } from 'punycode';
 import authConfig from '../../config/auth';
 
+// eslint-disable-next-line consistent-return
 export default async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ error: 'Token not send.' });
+    return res.status(401).json({ error: 'Token não enviado.' });
   }
 
   const [, token] = authHeader.split(' ');
@@ -17,7 +19,7 @@ export default async (req, res, next) => {
 
     req.userId = decoded.id;
 
-    return next();
+    next();
   } catch (error) {
     return res.status(401).json({ error: 'Token invalid' });
   }
