@@ -11,7 +11,6 @@ import authMiddleware from './app/middlewares/auth';
 const routes = Router();
 
 routes.use(cors());
-
 routes.get('/', (req, res) => res.json('JWT-API'));
 routes.post('/users', UserController.store);
 routes.post('/login', AuthController.store);
