@@ -2,9 +2,10 @@ import Card from '../models/Card';
 
 class CardController {
   async store(req, res) {
-    const { title, content } = req.body;
+    const { title, content, idUser } = req.body;
 
     const card = await Card.create({
+      id_user: idUser,
       title,
       content,
     });
@@ -12,7 +13,8 @@ class CardController {
   }
 
   async index(req, res) {
-    const cards = await Card.findAll();
+    const id_user = req.userId;
+    const cards = await Card.findAll({ where: { id_user } });
 
     return res.json(cards);
   }
