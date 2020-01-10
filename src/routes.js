@@ -10,11 +10,13 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = Router();
 
-routes.use(authMiddleware, cors);
+routes.use(cors());
 
 routes.get('/', (req, res) => res.json('JWT-API'));
 routes.post('/users', UserController.store);
 routes.post('/login', AuthController.store);
+
+routes.use(authMiddleware);
 
 routes.get('/cards', CardController.index);
 routes.get('/cards/:id', checkCard, CardController.show);
