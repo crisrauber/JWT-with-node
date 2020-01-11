@@ -13,6 +13,7 @@ const routes = Router();
 routes.use(cors());
 routes.get('/', (req, res) => res.json('JWT-API'));
 routes.post('/users', UserController.store);
+routes.put('/users/:id', UserController.update);
 routes.post('/login', AuthController.store);
 
 routes.use(authMiddleware);
